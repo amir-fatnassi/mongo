@@ -1,0 +1,26 @@
+cd C:\Program Files\MongoDB\Server\4.0\bin 
+mongo  
+//Créer une base de données appelée "contact"
+use concat  
+// Créez une collection appelée "contactlist"
+db.createCollection('contactlist') 
+//Insérer 3 personnes dans "contactlist":
+db.contactlist.insert({nom:'Ben Lahmer',prenom:'Fares',Email:'fares@gmail.com',age:26})
+db.contactlist.insert({nom:'Kefi',prenom:'Seif',Email:'kefi@gmail.com',age:15})
+db.contactlist.insert({nom:'Fatnassi',prenom:'Sarra',Email:'sarra.f@gmail.com',age:40})
+db.contactlist.insert({nom:'Ben Yahia',prenom:'Rym',age:4})
+db.contactlist.insert({nom:'Cherif',prenom:'Sami',age:3})
+//Afficher toute la liste de contacts
+db.contactlist.find().pretty()
+//Afficher toutes les informations sur une seule personne utilisant son identifiant
+db.contactlist.find({Email: 'fares@gmail.com'})
+//Afficher toute la liste des contacts âgés de plus de 18 ans
+db.contactlist.find({age:{$gt:18}})
+//Afficher toute la liste des contacts âgés de plus de 18 ans et dont le nom contient "ah"
+db.contactlist.find({   $and: [ {age:{$gt:18}  },{nom: {$regex: /ah/}} ] })
+//Changer le prénom du contact de "kefi Seif" par "Kefi Anis"
+db.contactlist.update({first_name:"Kefi"}, {$set: {first_name: "Anis"}})
+//Supprimer la liste de contacts ayant <5 ans
+db.contactlist.deleteMany({age: {$lt: 5}})
+//Afficher toute la liste de contacts
+db.contactlist.find().pretty()
